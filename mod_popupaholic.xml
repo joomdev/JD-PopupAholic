@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1" client="site" method="upgrade">
+	<name>JD PopupAholic</name>
+	<creationDate>November 2016</creationDate>
+	<version>1.3.4</version>
+	<author>JoomDev (Formerly GraphicAholic)</author>
+	<copyright>Copyright (C) 2020 Joomdev, Inc. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<authorEmail>info@joomdev.com</authorEmail>
+	<authorUrl>https://www.joomdev.com</authorUrl>
+	
+	<description>
+	<![CDATA[
+		<div class="alert alert-info" style="font-weight: normal;">
+			<h3>JD PopupAholic</h3>
+			<p>JD PopupAholic is a Joomla Module that allows you to trigger pop ups on the page load. It's a free Joomla module that you can use on any of your commercial or non-commercial websites.</p>
+			<p>JD PopupAholic formerly known as PopupAholic from Graphicaholic is now moved to JoomDev along with other Extensions. <strong>Check out the <a href="https://www.joomdev.com/graphicaholic" target="_blank">Announcement here.</a></strong></p>
+			<a href="https://www.joomdev.com/forum/jd-popupaholic" target="_blank">Support</a> | <span>Demo</span> | <a href="https://www.joomdev.com/products/extensions/jd-popupaholic" target="_blank">More Details</a>
+		</div>
+	]]>
+	</description>
+	
+	<customContent />
+	
+	<files>
+		<filename module="mod_popupaholic">mod_popupaholic.php</filename>
+		<folder>js</folder>
+		<folder>css</folder>
+		<folder>tmpl</folder>
+		<folder>fields</folder>
+		<folder>images</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+		<filename>mod_popupaholic.xml</filename>
+	</files>
+	
+	<updateservers>
+		<server type="extension" priority="1" name="JD PopupAholic">https://joomdev.com/updates/popupaholic.xml</server>
+	</updateservers>
+	
+	<config>
+		<fields name="params" addfieldpath="/modules/mod_popupaholic/fields">
+			<!-- General Settings -->
+			<fieldset name="basic">
+				<field type="spacer" name="popupaholicspacer1" label="" />
+				<field name="autoResponsive" type="list" default="false" label="Responsive or Static Box" description="Responsive setting will size popup box according to your screen size or width and height settings within your display code. Static setting will give you the option to manually set your width and height.">
+					<option value="true">Responsive Box</option>
+					<option value="false">Static Box</option>
+				</field>
+				<field name="setMaxWidth" showon="autoResponsive:true" type="radio" class="btn-group" default="0" label="Set Max Width" description="Set Max Width of Responsive Box?.">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="responsiveMaxWidth" showon="autoResponsive:true[AND]setMaxWidth:1" type="text" default="900px" label="Max Width Value" description="Set Max Width value in pixels. NOTE: must include PX after value." />
+				<field name="boxWidth" showon="autoResponsive:false" type="text" default="600" label="Set Width of Static Box" description="Set width of Static Box" />
+				<field name="boxHeight" showon="autoResponsive:false" type="text" default="600" label="Set Height of Static Box" description="Set height of Static Box" />
+				<field name="boxTimer" type="text" default="10" label="Set Box Timer in Seconds" description="Set how long in seconds your popup box will display." />
+				<field name="cookieExpire" type="list" default="noCookie" label="Cookies expire in" description="Day(s)=Total Number of days before cookie expires. Hours(s)=Number of hours (24 hour clock) before cookie expires. Minutes(s)=Number of minutes (1 minimum to 60 maximum before cookie expires.)">
+					<option value="noCookie">No cookie session</option>
+					<option value="inDays">Day(s)</option>
+					<option value="inHours">Hour(s)</option>
+					<option value="inMinutes">Minute(s)</option>
+				</field>
+				<field name="cookieTime" showon="cookieExpire:inDays,inHours,inMinutes" type="text" default="15" label="Set Cookie Time" description="Set cookie time based on above setting." />
+				<field name="setDelay" type="list" default="0" label="Delay Popup on Page Load" description="">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="setDelayValue" showon="setDelay:1" type="text" default="1" label="Delay Popup in Seconds" description="Set amount of delay time in seconds between page load and popup load." />
+				<field name="boxSelection" type="list" default="1" label="Get box data from" description="">
+					<option value="1">Above Custom HTML</option>
+					<option value="2">External file</option>
+				</field>
+				<field name="boxFile" showon="boxSelection:2" type="url" default="http://" label="External file path" description="Type in the absolute path of the file you wish to display in your popup box. This can be any on or off server text, HTML, image, video file" />
+			</fieldset>
+			<!-- Style Settings -->
+			<fieldset name="styles" group="styles" label="PopUp Box Styles">
+				<field name="closeButton" type="list" default="1" label="Show Close Button?" description="Choose to display the close button.">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="customButton" showon="closeButton:1" class="btn-group" type="radio" default="0" label="Use custom close button?" description="Choose to use your own custom close button or the ones provided with JD PopupAholic.">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="customButtonURL" showon="customButton:1" type="url" default="" label="URL to custom close button" description="URL MUST BE AN ABSOLUTE PATH. Starting with http:// or https://" />
+				<field name="customButtonWidth" showon="customButton:1" type="text" default="" label="Custom close button width" description="Custom close button pixel width. MUST include PX after value. Example: 36px" />
+				<field name="customButtonHeight" showon="customButton:1" type="text" default="" label="Custom close button height" description="Custom close button pixel height. MUST include PX after value. Example: 36px" />
+				<field name="closeButtonIcon" showon="closeButton:1[AND]customButton:0" type="list" default="closeButton" label="Select Close Button" description="Choose the close button of your choice.">
+					<option value="closeButton">Default Gray</option>
+					<option value="closeButton-Blue">Blue</option>
+					<option value="closeButton-Brown">Brown</option>
+					<option value="closeButton-Green">Green</option>
+					<option value="closeButton-Orange">Orange</option>
+					<option value="closeButton-Purple">Purple</option>
+					<option value="closeButton-Red">Red</option>
+					<option value="closeButton-Teal">Teal</option>
+					<option value="closeButton-Black">Flat Black</option>
+				</field>
+				<field name="xButtonRight" showon="closeButton:1" type="text" default="-18px" label="X right/left position" description="Adjust value +/- to relocate the X buttons left/right position" />
+				<field name="xButtonTop" showon="closeButton:1" type="text" default="-18px" label="X top/bottom position" description="Adjust value +/- to relocate the X buttons top/bottom position" />
+				<field name="closeOnlyX" type="list" default="true" label="Close popup box only with X?" description="If you choose Yes, PopUpAholic will only close when the X button is clicked while active.">
+					<option value="false">Yes</option>
+					<option value="true">No</option>
+				</field>
+				<field name="effectsIn" type="list" default="none" label="Popup Load Effect" description="Choose your effects on popup box load.">
+					<option value="none">None</option>
+					<option value="fade">Fade</option>
+					<option value="elastic">Elastic</option>
+				</field>
+				<field name="effectsOut" type="list" default="none" label="Popup Exit Effect" description="Choose your effects on popup box exit">
+					<option value="none">None</option>
+					<option value="fade">Fade</option>
+					<option value="elastic">Elastic</option>
+				</field>
+
+				<field name="effectSpeed" type="text" default="250" label="Popup Load/Exit speed" description="Adjust to your specific needs. Lower value will speed-up effect and higher value will slow-down effect." />
+
+				<field name="backgroundOverlay" type="truecolors" default="rgb(0,0,0,1)" label="Background Overlay Color" format="rgb" opacity="1.0" description="Choose your background overlay color." />
+				<field name="boxBackground" type="truecolors" default="rgb(255,255,255,1)" label="Box Background Color" format="rgb" opacity="1.0" description="Choose your box background color." />
+				<field name="boxFont" type="truecolors" default="rgb(0,0,0,1)" label="Box Text Color" format="rgb" opacity="1.0" description="Choose your font color." />
+				<field name="boxRadius" type="text" default="0" label="Box Radius" description="Choose your box radius effect. Value will be rendered in pixels. Do not include px after value." />
+				<field name="boxBorder" type="list" default="0" label="Box Border" description="Show a box border?">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="borderSize" showon="boxBorder:1" type="text" default="0" label="Border Thickness" description="Choose box border thickness. Value will be rendered in pixels. Do not include px after value." />
+				<field name="borderColor" showon="boxBorder:1" type="truecolors" default="rgb(0,0,0,1)" label="Border Color" format="rgb" opacity="1.0" description="Choose box border color." />
+				<field name="borderType" showon="boxBorder:1" type="list" default="solid" label="Border Type" description="Choose the box border style you wish to display.">
+					<option value="solid">Solid</option>
+					<option value="dotted">Dotted</option>
+					<option value="dashed">Dashed</option>
+					<option value="double">Double</option>
+					<option value="groved">Groved</option>
+					<option value="ridge">Ridge</option>
+					<option value="inset">Inset</option>
+					<option value="outset">Outset</option>
+				</field>
+				<field name="boxShadow" type="list" default="0" label="Box Shadow Effect" description="Show a box shadow effect?">
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+				<field name="boxShadowOpacity" showon="boxShadow:1" type="truecolors" default="rgb(0,0,0,1)" label="Box Shadow Color" format="rgb" opacity="1.0" description="Choose box shadow color and opacity." />
+				<field name="4cornerMargin" type="text" default="20" label="Four Corner Padding" description="Value will be rendered in pixels. Do not include px after value." />
+
+
+			</fieldset>
+			<!-- Advanced Settings -->
+			<fieldset name="advanced" group="advanced">
+				<field name="loadScripts" type="list" default="1" label="Load script files inline?" description="By selecting Yes, you are allowing JD PopupAholic to load it's supporting script files in between the body tags and not in the head tags, where they properly belong. This option is available because other installed extension(s) on your site or your template are improperly loading the jQuery Library script.">
+					<option value="1">JNO</option>
+					<option value="2">JYES</option>
+				</field>
+				<field name="loadjQuery" showon="loadScripts:2" type="radio" class="btn-group" default="0" label="Load jQuery Library?" description="By selecting Yes, you are allowing JD PopupAholic to load the jQuery Library script inline. This option was added to combat other Joomla! template or extension developers who choose not to follow the Joomla! 3.x guidelines on properly handling the jQuery Library script load. Having to add this option angers me greatly because NOW this extension is not following the Joomla! 3.x jQuery Library guidelines. By setting this option to 'Yes' just to get JD PopupAholic to work is just wrong! However, because other Joomla! extension or template developers choose not to follow these quidelines, I must fight fire with fire... Please adjust this setting at your own risk!">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="fieldMODULECLASSSUFFIX" />
+				<field name="cache" type="radio" class="btn-group" default="1" label="Caching" description="Select whether to cache the content of this module">
+					<option value="1">Use global</option>
+					<option value="0">No caching</option>
+				</field>
+				<field name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+				<field name="documentation" type="docs" default="900" label="" description="" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
